@@ -1,0 +1,47 @@
+/** English translation. Missing keys fall back to Uzbek. */
+export const en = {
+  'nav.home': 'Home',
+  'nav.planner': 'Plan my day',
+  'nav.saved': 'Saved',
+  'nav.cta': 'Plan my day',
+  'nav.theme': 'Switch theme',
+
+  'hero.badge': 'Built for Tashkent',
+  'hero.badgeTag': 'New',
+  'hero.title': 'We plan your Sunday.',
+  'hero.lead': 'Tell us your hours and your budget. We handle the rest.',
+  'hero.cta': 'Plan my day',
+  'hero.secondary': 'How it works',
+  'hero.fact1': 'seconds to a plan',
+  'hero.fact2': 'interests',
+  'hero.fact3': 'budget control',
+
+  'steps.title': 'Three steps to a full day',
+  'steps.1.title': 'Set your limits',
+  'steps.1.text': 'Budget, time window, company and what you enjoy.',
+  'steps.2.title': 'We build the route',
+  'steps.2.text': 'Places are picked, travel time and fares included.',
+  'steps.3.title': 'Make it yours',
+  'steps.3.text': 'Swap any stop — the budget recalculates instantly.',
+
+  'planner.title': 'Building your day',
+  'planner.next': 'Next',
+  'planner.back': 'Back',
+  'planner.generate': 'Plan my day',
+  'planner.step': 'Step {current} of {total}',
+
+  'result.title': 'Your ideal Sunday ☀️',
+  'result.save': 'Save',
+  'result.share': 'Share',
+  'result.print': 'Print',
+  'result.regenerate': 'Rebuild',
+  'result.fit': 'Fit to budget',
+  'result.alternatives': 'Other option',
+  'result.details': 'Details',
+  'result.map': 'On the map',
+
+  'common.free': 'Free',
+  'common.close': 'Close',
+  'common.retry': 'Try again',
+  'common.demo': 'Demo data',
+};

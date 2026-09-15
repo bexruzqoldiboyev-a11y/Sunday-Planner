@@ -1,0 +1,5 @@
+/* Uslublar tartibi muhim: tokenlar → asos → komponentlar → sahifalar */
+@import './tokens.css';
+@import './base.css';
+@import './components.css';
+@import './pages.css';

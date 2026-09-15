@@ -1,0 +1,47 @@
+/** Ruscha tarjima. Toʻldirilmagan kalitlar oʻzbekchada koʻrsatiladi. */
+export const ru = {
+  'nav.home': 'Главная',
+  'nav.planner': 'Составить план',
+  'nav.saved': 'Сохранённое',
+  'nav.cta': 'Составить план',
+  'nav.theme': 'Сменить тему',
+
+  'hero.badge': 'Работает по Ташкенту',
+  'hero.badgeTag': 'Новое',
+  'hero.title': 'Мы спланируем твоё воскресенье.',
+  'hero.lead': 'Скажи, сколько времени и денег. Остальное — наша работа.',
+  'hero.cta': 'Составить план',
+  'hero.secondary': 'Как это работает?',
+  'hero.fact1': 'секунд до плана',
+  'hero.fact2': 'интересов',
+  'hero.fact3': 'контроль бюджета',
+
+  'steps.title': 'Три шага — и день готов',
+  'steps.1.title': 'Расскажите условия',
+  'steps.1.text': 'Бюджет, время, компания и что вам нравится.',
+  'steps.2.title': 'Мы строим маршрут',
+  'steps.2.text': 'Подбираем места, считаем дорогу и её стоимость.',
+  'steps.3.title': 'Подгоните под себя',
+  'steps.3.text': 'Меняйте любой пункт — бюджет пересчитается сразу.',
+
+  'planner.title': 'Собираем ваш день',
+  'planner.next': 'Дальше',
+  'planner.back': 'Назад',
+  'planner.generate': 'Составить план',
+  'planner.step': 'Шаг {current} из {total}',
+
+  'result.title': 'Ваше идеальное воскресенье ☀️',
+  'result.save': 'Сохранить',
+  'result.share': 'Поделиться',
+  'result.print': 'Печать',
+  'result.regenerate': 'Пересобрать',
+  'result.fit': 'Уложить в бюджет',
+  'result.alternatives': 'Другой вариант',
+  'result.details': 'Подробнее',
+  'result.map': 'На карте',
+
+  'common.free': 'Бесплатно',
+  'common.close': 'Закрыть',
+  'common.retry': 'Повторить',
+  'common.demo': 'Демо-данные',
+};

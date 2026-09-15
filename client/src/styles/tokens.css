@@ -1,0 +1,129 @@
+/* ==========================================================================
+   Sunday Planner — dizayn tizimi v2
+   Yo'nalish: 3D shisha (glassmorphism), chuqurlik, yorug'lik va harakat.
+   Qatlamlar: fon aurora → shisha panel → ichki yorug'lik → kontent.
+   ========================================================================== */
+
+:root {
+  /* Brend */
+  --violet: #8b5cf6;
+  --indigo: #6366f1;
+  --cyan: #22d3ee;
+  --rose: #fb5c7d;
+  --amber: #fbbf24;
+  --mint: #34e7b8;
+
+  --grad-hero: linear-gradient(115deg, #fbbf24 0%, #fb5c7d 38%, #8b5cf6 72%, #22d3ee 100%);
+  --grad-violet: linear-gradient(135deg, #8b5cf6, #6366f1 55%, #22d3ee);
+  --grad-warm: linear-gradient(135deg, #fbbf24, #fb5c7d);
+  --grad-mint: linear-gradient(135deg, #34e7b8, #22d3ee);
+
+  /* Tipografika */
+  --font-display: 'Bricolage Grotesque', 'Manrope', system-ui, sans-serif;
+  --font-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --step--1: 0.875rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.25rem;
+  --step-2: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  --step-3: clamp(2rem, 1.4rem + 2.6vw, 3.2rem);
+  --step-4: clamp(2.9rem, 1.6rem + 6vw, 6rem);
+
+  /* O'lchamlar */
+  --space-1: 0.375rem;
+  --space-2: 0.75rem;
+  --space-3: 1.125rem;
+  --space-4: 1.75rem;
+  --space-5: 2.75rem;
+  --space-6: 4.5rem;
+  --space-7: 7rem;
+
+  --radius-sm: 14px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-xl: 36px;
+  --radius-pill: 999px;
+
+  --shell: 1180px;
+  --rail: 78px;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* 3D */
+  --depth: 1100px;
+}
+
+/* --------------------------------- DARK --------------------------------- */
+:root,
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #06060f;
+  --bg-deep: #03030a;
+
+  /* Shisha */
+  --glass-top: rgba(255, 255, 255, 0.13);
+  --glass-bottom: rgba(255, 255, 255, 0.035);
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --glass-sheen: rgba(255, 255, 255, 0.28);
+  --glass-blur: 30px;
+
+  --surface-solid: #11101f;
+  --chip-bg: rgba(255, 255, 255, 0.07);
+  --chip-bg-active: rgba(139, 92, 246, 0.24);
+  --line: rgba(255, 255, 255, 0.12);
+  --line-strong: rgba(255, 255, 255, 0.26);
+
+  --ink: #f5f3ff;
+  --ink-soft: #cdc7e8;
+  --ink-muted: #9089b4;
+
+  --glow-1: rgba(251, 191, 36, 0.55);
+  --glow-2: rgba(251, 92, 125, 0.5);
+  --glow-3: rgba(139, 92, 246, 0.6);
+  --glow-4: rgba(34, 211, 238, 0.45);
+
+  --shadow-sm: 0 10px 24px -12px rgba(0, 0, 0, 0.8);
+  --shadow-md: 0 26px 50px -22px rgba(0, 0, 0, 0.85);
+  --shadow-lg: 0 50px 90px -30px rgba(0, 0, 0, 0.9);
+  --shadow-glow: 0 24px 60px -18px rgba(139, 92, 246, 0.65);
+
+  --grain: 0.055;
+}
+
+/* --------------------------------- LIGHT -------------------------------- */
+[data-theme='light'] {
+  color-scheme: light;
+
+  --bg: #eceaff;
+  --bg-deep: #dedaf8;
+
+  --glass-top: rgba(255, 255, 255, 0.8);
+  --glass-bottom: rgba(255, 255, 255, 0.42);
+  --glass-border: rgba(255, 255, 255, 0.85);
+  --glass-sheen: rgba(255, 255, 255, 0.95);
+  --glass-blur: 26px;
+
+  --surface-solid: #ffffff;
+  --chip-bg: rgba(20, 14, 55, 0.05);
+  --chip-bg-active: rgba(139, 92, 246, 0.16);
+  --line: rgba(20, 14, 55, 0.1);
+  --line-strong: rgba(20, 14, 55, 0.22);
+
+  --ink: #14102c;
+  --ink-soft: #413a66;
+  --ink-muted: #6d658f;
+
+  --glow-1: rgba(251, 191, 36, 0.6);
+  --glow-2: rgba(251, 92, 125, 0.45);
+  --glow-3: rgba(139, 92, 246, 0.42);
+  --glow-4: rgba(34, 211, 238, 0.4);
+
+  --shadow-sm: 0 10px 22px -14px rgba(32, 20, 80, 0.45);
+  --shadow-md: 0 26px 46px -24px rgba(32, 20, 80, 0.45);
+  --shadow-lg: 0 46px 80px -34px rgba(32, 20, 80, 0.5);
+  --shadow-glow: 0 24px 54px -20px rgba(139, 92, 246, 0.45);
+
+  --grain: 0.03;
+}

@@ -1,0 +1,47 @@
+/** Asosiy til. Boshqa fayllar shu kalitlar ustiga yoziladi. */
+export const uz = {
+  'nav.home': 'Bosh sahifa',
+  'nav.planner': 'Reja tuzish',
+  'nav.saved': 'Saqlangan',
+  'nav.cta': 'Rejamni tuzish',
+  'nav.theme': 'Mavzuni almashtirish',
+
+  'hero.badge': 'Toshkent uchun ishlaydi',
+  'hero.badgeTag': 'Yangi',
+  'hero.title': 'Yakshanbangni biz rejalashtiramiz.',
+  'hero.lead': 'Vaqting va budjetingni ayt. Qolganini biz hal qilamiz.',
+  'hero.cta': 'Rejamni tuzish',
+  'hero.secondary': 'Qanday ishlaydi?',
+  'hero.fact1': 'soniyada tayyor',
+  'hero.fact2': 'ta qiziqish',
+  'hero.fact3': 'budjet nazorati',
+
+  'steps.title': 'Uch qadam — va kun tayyor',
+  'steps.1.title': 'Shartlaringizni ayting',
+  'steps.1.text': 'Budjet, vaqt oynasi, kim bilan chiqasiz va nima yoqadi.',
+  'steps.2.title': 'Biz marshrut tuzamiz',
+  'steps.2.text': 'Joylar tanlanadi, yoʻl vaqti va yoʻl puli hisoblanadi.',
+  'steps.3.title': 'Oʻzingizga moslang',
+  'steps.3.text': 'Har bir qadamni almashtiring — budjet darhol qayta hisoblanadi.',
+
+  'planner.title': 'Kuningizni tuzamiz',
+  'planner.next': 'Keyingisi',
+  'planner.back': 'Orqaga',
+  'planner.generate': 'Rejamni tuzish',
+  'planner.step': '{current} / {total}-qadam',
+
+  'result.title': 'Sizning ideal yakshanbangiz ☀️',
+  'result.save': 'Saqlash',
+  'result.share': 'Ulashish',
+  'result.print': 'Print',
+  'result.regenerate': 'Qayta tuzish',
+  'result.fit': 'Budjetga moslashtirish',
+  'result.alternatives': 'Boshqa variant',
+  'result.details': 'Batafsil',
+  'result.map': 'Xaritada koʻrish',
+
+  'common.free': 'Bepul',
+  'common.close': 'Yopish',
+  'common.retry': 'Qayta urinish',
+  'common.demo': 'Demo maʼlumot',
+};
