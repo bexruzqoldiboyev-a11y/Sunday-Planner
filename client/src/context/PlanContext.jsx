@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useMemo, useState } from 'react
 import { useLocalStorage } from '../hooks/useLocalStorage.js';
 import { DEFAULT_FORM } from '../data/options.js';
 import { createPlan, swapPlanActivity, fitPlanToBudget } from '../services/plannerService.js';
+import { nextWeekdayISO, weekdayId } from '../utils/format.js';
 
 const PlanContext = createContext(null);
 
@@ -21,7 +22,15 @@ export function PlanProvider({ children }) {
 
   const generate = useCallback(
     async (overrides = {}) => {
-      const payload = { ...form, ...overrides, seed: Math.floor(Math.random() * 90000) + 1 };
+      // Sana tanlanmagan boʻlsa — eng yaqin yakshanba.
+      const date = form.date || overrides.date || nextWeekdayISO(0);
+      const payload = {
+        ...form,
+        ...overrides,
+        date,
+        day: weekdayId(date),
+        seed: Math.floor(Math.random() * 90000) + 1,
+      };
       setStatus('loading');
       setError(null);
       try {

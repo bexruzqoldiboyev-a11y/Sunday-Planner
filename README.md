@@ -29,6 +29,75 @@ Talab: **Node.js 18+** (tavsiya 20+).
 
 ---
 
+## Vercel'ga joylash
+
+Loyiha Vercel uchun tayyor: frontend statik sayt, backend esa serverless
+funksiya boʻlib ishlaydi (`api/index.js` — oʻsha Express ilovasining oʻzi).
+
+### 1-usul: GitHub orqali (tavsiya etiladi)
+
+1. Loyihani GitHub'ga yuklang:
+
+```bash
+git init
+git add .
+git commit -m "Sunday Planner"
+git branch -M main
+git remote add origin https://github.com/FOYDALANUVCHI/sunday-planner.git
+git push -u origin main
+```
+
+2. [vercel.com/new](https://vercel.com/new) → **Import Git Repository** → shu repo.
+3. Sozlamalarni **oʻzgartirmang** — `vercel.json` ichida hammasi yozilgan:
+
+| Maydon | Qiymat |
+| --- | --- |
+| Build Command | `npm run build` |
+| Output Directory | `client/dist` |
+| Install Command | `npm install` |
+
+4. **Environment Variables** boʻlimiga (ixtiyoriy) qoʻshing:
+
+```
+GOOGLE_MAPS_API_KEY = AIza...      # joylarning real fotosuratlari
+ANTHROPIC_API_KEY   = sk-ant-...   # AI yozadigan sarlavha
+```
+
+5. **Deploy**. Tayyor: `https://sizning-loyiha.vercel.app`
+
+Keyin har bir `git push` avtomatik yangi deploy qiladi.
+
+### 2-usul: CLI orqali
+
+```bash
+npm i -g vercel
+vercel login
+vercel          # sinov deploy
+vercel --prod   # asosiy domenga
+```
+
+### Tekshirish
+
+Deploydan soʻng:
+
+- `https://loyiha.vercel.app/` — sayt ochiladi
+- `https://loyiha.vercel.app/api/health` — `{"ok":true,...}` qaytadi
+
+Agar `/api/health` ishlamasa, Vercel'da **Functions** logini oching —
+xato oʻsha yerda koʻrinadi.
+
+### Nimaga eʼtibor berish kerak
+
+- Joylar bazasi **modul** sifatida import qilinadi (`places.data.js`), fayl
+  tizimidan oʻqilmaydi — serverless muhitda shu ishonchli.
+- `GOOGLE_MAPS_API_KEY` faqat serverda qoladi, brauzerga chiqmaydi.
+- Wikipedia fotosuratlari brauzerdan olinadi — hech qanday kalit kerak emas,
+  deploydan keyin darhol ishlaydi.
+- Bepul tarifda funksiya "sovuq" boshlanishi mumkin: birinchi soʻrov
+  1–2 soniya sekinroq boʻladi.
+
+---
+
 ## Sozlash (.env)
 
 `.env.example` dan nusxa oling:
@@ -54,9 +123,35 @@ Frontend uchun `client/.env`:
 
 ---
 
+## Yoʻl vaqtlari
+
+Joylar orasidagi yoʻl **haqiqiy koʻchalar boʻyicha** hisoblanadi:
+[OSRM](https://project-osrm.org) (OpenStreetMap marshrutlash) real masofa va
+davomiylikni qaytaradi, ustiga shahar tirbandligi uchun 25% zaxira qoʻshiladi.
+1.6 km gacha — piyoda, undan uzoq — taksi (narx taxminiy tarif boʻyicha).
+
+Xizmat javob bermasa, avtomatik ravishda toʻgʻri chiziq masofasiga asoslangan
+taxminiy hisobga oʻtadi va birinchi xatodan keyin qolgan soʻrovlar yuborilmaydi
+— shuning uchun foydalanuvchi kutib qolmaydi. Natija sahifasida qaysi usul
+ishlatilgani koʻrsatiladi ("real marshrut" / "taxminiy").
+
+Oʻz OSRM serveringiz boʻlsa: `OSRM_URL=http://localhost:5000`.
+
+---
+
 ## Real fotosuratlar
 
-Sayt joylarning **oʻz fotosuratlarini** Google Places Photos API orqali koʻrsata oladi.
+Rasm uch manbadan olinadi, shu tartibda:
+
+1. **Google Places Photos** — aynan oʻsha joyning oʻz fotosi (API kalit kerak)
+2. **Wikimedia Commons** — mashhur joylar uchun erkin litsenziyali fotosuratlar
+   (Minor masjidi, Chorsu bozori, Yaponiya bogʻi, Amir Temur muzeyi).
+   `client/src/data/photos.js` ichida, muallif va litsenziya bilan.
+3. **Oʻzingiz qoʻshgan rasm/video** (`client/public/media/`)
+
+Hech biri boʻlmasa — kategoriya uchun chizilgan jonli SVG sahna koʻrsatiladi.
+
+### Google Places Photos
 
 1. [Google Cloud Console](https://console.cloud.google.com) → yangi loyiha
 2. **Places API (New)** ni yoqing

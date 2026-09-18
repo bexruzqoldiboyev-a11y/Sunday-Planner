@@ -10,22 +10,15 @@
  * o'zgarmaydi, chunki hamma joy shu servis orqali o'qiydi.
  */
 
-import { readFile } from 'node:fs/promises';
-import { fileURLToPath } from 'node:url';
-import path from 'node:path';
+import { PLACES_DATA } from '../data/places.data.js';
 import { attachPhotoUrls } from './photoService.js';
 
-const here = path.dirname(fileURLToPath(import.meta.url));
-const DATA_PATH = path.join(here, '..', 'data', 'places.json');
-
-let cache = null;
-
+/**
+ * Maʼlumot modul sifatida import qilinadi — fayl tizimiga bogʻliq emas,
+ * shuning uchun serverless muhitda ham ishlaydi.
+ */
 async function loadDemo() {
-  if (!cache) {
-    const raw = await readFile(DATA_PATH, 'utf-8');
-    cache = JSON.parse(raw);
-  }
-  return cache;
+  return PLACES_DATA;
 }
 
 /**

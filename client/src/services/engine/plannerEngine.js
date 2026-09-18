@@ -181,11 +181,14 @@ function rankCandidates(ctx, pool, usedIds) {
   if (!entries.length) return [];
 
   const affordable = entries.filter((entry) => entry.total <= ctx.hardCap);
-  const usable = affordable.length
-    ? affordable
-    : [...entries].sort((a, b) => a.total - b.total).slice(0, 5);
 
-  return usable.sort((a, b) => b.score - a.score);
+  // Limitga sigʻadigan nomzod boʻlmasa — eng arzonidan boshlaymiz.
+  // (Juda kichik budjetda reja baribir chiqsin, lekin imkon qadar arzon.)
+  if (!affordable.length) {
+    return [...entries].sort((a, b) => a.total - b.total).slice(0, 5);
+  }
+
+  return affordable.sort((a, b) => b.score - a.score);
 }
 
 /* ------------------------------------------------------------------ */
@@ -198,6 +201,28 @@ export function recomputeTimeline(items, startMin) {
     const previous = index === 0 ? null : items[index - 1].place;
     const trip = travel(coords(previous), coords(item.place));
     const start = roundToStep(cursor + trip.minutes);
+    const end = start + item.durationMin;
+    cursor = end + BREAK_MINUTES;
+    return {
+      ...item,
+      transport: trip,
+      startMin: start,
+      endMin: end,
+      time: toHHMM(start),
+      endTime: toHHMM(end),
+    };
+  });
+}
+
+/**
+ * Jadvalni TAYYOR yoʻllar bilan qayta hisoblaydi.
+ * Real marshrut (OSRM) natijasi kelganda shu ishlatiladi.
+ */
+export function applyTrips(items, startMin, trips) {
+  let cursor = startMin;
+  return items.map((item, index) => {
+    const trip = trips[index] || item.transport;
+    const start = roundToStep(cursor + (trip?.minutes || 0));
     const end = start + item.durationMin;
     cursor = end + BREAK_MINUTES;
     return {
@@ -337,6 +362,7 @@ export function buildPlan(input, places, meta = {}) {
     createdAt: new Date().toISOString(),
     source: meta.source || 'demo',
     currency: 'UZS',
+    date: input.date || null,
     day: input.day || 'sunday',
     dayLabel: DAY_LABELS[input.day] || DAY_LABELS.sunday,
     city: input.city || 'tashkent',

@@ -15,12 +15,12 @@ import { AlternativesModal } from '../components/result/AlternativesModal.jsx';
 import { PlaceModal } from '../components/result/PlaceModal.jsx';
 import { ShareModal } from '../components/result/ShareModal.jsx';
 import { PlanActions } from '../components/result/PlanActions.jsx';
-import { formatSum } from '../utils/format.js';
+import { formatSum, formatDateLong } from '../utils/format.js';
 
 export default function Result() {
   const { plan, swap, fitBudget, generate, savePlan, savedPlans, status } = usePlan();
   const toast = useToast();
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const navigate = useNavigate();
 
   const [swapIndex, setSwapIndex] = useState(null);
@@ -35,11 +35,11 @@ export default function Result() {
         <div className="shell">
           <EmptyState
             icon="🗓"
-            title="Hali reja tuzilmagan"
-            message="Bir necha savolga javob bering — kuningiz soatma-soat tayyor boʻladi."
+            title={t('result.empty')}
+            message={t('result.emptyText')}
             action={
               <Button as="link" to="/planner">
-                Rejamni tuzish
+                {t('hero.cta')}
               </Button>
             }
           />
@@ -128,9 +128,16 @@ export default function Result() {
             <Tag>💰 {formatSum(plan.budget)} soʻm</Tag>
             <Tag>🕘 {plan.startTime}–{plan.endTime}</Tag>
             <Tag>📍 {plan.cityLabel}</Tag>
-            <Tag>📅 {plan.dayLabel}</Tag>
-            {plan.offline ? <Tag tone="demo">Offline rejim</Tag> : null}
-            <Tag>🗺 Joylar: Google Places</Tag>
+            <Tag>
+              📅 {plan.date ? `${formatDateLong(plan.date, lang)} · ` : ''}
+              {t(`day.${plan.day || 'sunday'}`)}
+            </Tag>
+            {plan.offline ? <Tag tone="demo">offline</Tag> : null}
+            <Tag>🗺 {t('result.places')}: Google Places</Tag>
+            <Tag>
+              🛣 {t('result.travelBy')}:{' '}
+              {plan.routing === 'osrm' ? t('result.realRoute') : t('result.estimated')}
+            </Tag>
           </div>
 
           <PlanActions
@@ -153,9 +160,9 @@ export default function Result() {
             />
 
             <div className="stack" style={{ gap: '0.75rem' }}>
-              <h2 style={{ fontSize: 'var(--step-2)' }}>Kun marshruti</h2>
+              <h2 style={{ fontSize: 'var(--step-2)' }}>{t('result.routeTitle')}</h2>
               <p className="muted" style={{ fontSize: '0.86rem', marginTop: '-0.35rem' }}>
-                Nuqtalar real manzillarda. Bosib koʻring yoki butun marshrutni Google Maps'da oching.
+                {t('result.routeLead')}
               </p>
               <RouteMap items={plan.items} activeIndex={activePoint} onSelect={setActivePoint} />
             </div>
@@ -166,14 +173,14 @@ export default function Result() {
             <StatsPanel plan={plan} />
             {plan.copy?.tip ? (
               <div className="card card--pad">
-                <h3 style={{ fontSize: '1.05rem', marginBottom: '0.4rem' }}>Maslahat</h3>
+                <h3 style={{ fontSize: '1.05rem', marginBottom: '0.4rem' }}>{t('result.tipTitle')}</h3>
                 <p className="muted" style={{ fontSize: '0.88rem' }}>
                   {plan.copy.tip}
                 </p>
               </div>
             ) : null}
             <Button variant="ghost" onClick={() => navigate('/planner')}>
-              ⚙️ Shartlarni oʻzgartirish
+              ⚙️ {t('result.settings')}
             </Button>
           </aside>
         </div>

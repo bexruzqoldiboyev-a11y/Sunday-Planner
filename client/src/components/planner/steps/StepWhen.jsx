@@ -1,33 +1,80 @@
-import { DAYS, CITIES } from '../../../data/options.js';
+import { CITIES, QUICK_DAYS } from '../../../data/options.js';
+import { useI18n } from '../../../i18n/index.jsx';
+import {
+  formatDateLong,
+  nextWeekdayISO,
+  todayISO,
+  toISODate,
+  weekdayId,
+} from '../../../utils/format.js';
 
-/** 1-qadam: qaysi kun va qaysi shahar. */
-export function StepWhen({ form, update }) {
+/**
+ * 1-qadam: sana va shahar.
+ *
+ * Hafta kuni alohida tanlanmaydi — u sanadan avtomatik aniqlanadi.
+ * Shu tufayli reja aniq kunga bogʻlanadi (masalan 21-sentabr, yakshanba).
+ */
+export function StepWhen({ form, update, errors }) {
+  const { t, lang } = useI18n();
+  const today = todayISO();
+  const date = form.date || nextWeekdayISO(0);
+  const weekday = weekdayId(date);
+
+  const setDate = (value) => {
+    if (!value) return;
+    update({ date: value, day: weekdayId(value) });
+  };
+
+  const quickValue = (item) => {
+    if (item.id === 'today') return today;
+    if (item.id === 'tomorrow') {
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      return toISODate(tomorrow);
+    }
+    return nextWeekdayISO(item.weekday);
+  };
+
   return (
     <div className="stack" style={{ gap: 'var(--space-4)' }}>
       <div className="field">
-        <span className="field__label">Qaysi kun?</span>
-        <div className="option-grid">
-          {DAYS.map((day) => (
-            <button
-              key={day.id}
-              type="button"
-              className="option"
-              data-active={form.day === day.id}
-              disabled={!day.available}
-              onClick={() => update({ day: day.id })}
-            >
-              <span className="option__emoji" aria-hidden="true">
-                {day.emoji}
-              </span>
-              <span className="option__label">{day.label}</span>
-              <span className="option__hint">{day.available ? 'Tayyor' : 'Tez orada'}</span>
-            </button>
-          ))}
+        <span className="field__label">{t('f.dateQ')}</span>
+
+        <input
+          className={`input input--date ${errors.date ? 'input--invalid' : ''}`}
+          type="date"
+          value={date}
+          min={today}
+          onChange={(event) => setDate(event.target.value)}
+          aria-label={t('f.dateQ')}
+        />
+
+        <span className="field__hint">
+          {formatDateLong(date, lang)} · <b>{t(`day.${weekday}`)}</b>
+        </span>
+
+        {errors.date ? <span className="field__error">{errors.date}</span> : null}
+
+        <div className="chip-grid" style={{ marginTop: '0.35rem' }}>
+          {QUICK_DAYS.map((item) => {
+            const value = quickValue(item);
+            return (
+              <button
+                key={item.id}
+                type="button"
+                className="chip"
+                data-active={date === value}
+                onClick={() => setDate(value)}
+              >
+                {t(item.key)}
+              </button>
+            );
+          })}
         </div>
       </div>
 
       <div className="field">
-        <span className="field__label">Joylashuv</span>
+        <span className="field__label">{t('f.city')}</span>
         <div className="chip-grid">
           {CITIES.map((city) => (
             <button
@@ -39,14 +86,11 @@ export function StepWhen({ form, update }) {
               onClick={() => update({ city: city.id, cityLabel: city.label })}
             >
               {city.label}
-              {!city.available ? ' · tez orada' : ''}
+              {!city.available ? ` · ${t('f.soon').toLowerCase()}` : ''}
             </button>
           ))}
         </div>
-        <span className="field__hint">
-          Hozircha joylar bazasi Toshkent uchun. Boshqa shaharlar qoʻshilganda shu roʻyxat oʻzi
-          uzayadi.
-        </span>
+        <span className="field__hint">{t('f.cityHint')}</span>
       </div>
     </div>
   );

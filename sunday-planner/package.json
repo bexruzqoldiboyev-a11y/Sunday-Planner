@@ -1,0 +1,25 @@
+{
+  "name": "sunday-planner",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Sunday Planner — bo'sh kuningizni budjet va qiziqishlaringizga qarab rejalashtiruvchi web-ilova",
+  "type": "module",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "concurrently -n server,client -c magenta,cyan \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:client": "npm --workspace client run dev",
+    "dev:server": "npm --workspace server run dev",
+    "build": "npm --workspace client run build",
+    "preview": "npm --workspace client run preview",
+    "start": "npm --workspace server run start"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

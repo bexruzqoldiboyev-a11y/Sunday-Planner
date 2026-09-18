@@ -2,11 +2,21 @@ import { toMinutes } from '../utils/time.js';
 import { ApiError } from '../utils/ApiError.js';
 
 const MOODS = ['relax', 'adventure', 'fun', 'social', 'active', 'quiet', 'luxury', 'budget'];
+const WEEKDAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+
+/** 'YYYY-MM-DD' → hafta kuni identifikatori. */
+function weekdayFromDate(iso) {
+  const match = String(iso || '').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!match) return null;
+  const date = new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+  return Number.isNaN(date.getTime()) ? null : WEEKDAYS[date.getDay()];
+}
 const COMPANIONS = ['solo', 'friends', 'family', 'couple'];
 
 export const LIMITS = {
-  budgetMin: 50000,
-  budgetMax: 20000000,
+  // Budjet chegarasi yoʻq: foydalanuvchi xohlagan summani kiritadi.
+  // Faqat texnik yuqori chegara qoldirilgan (hisob-kitob toʻgʻri ishlashi uchun).
+  budgetMax: Number.MAX_SAFE_INTEGER,
   minWindowMinutes: 120,
 };
 
@@ -17,11 +27,9 @@ export function validatePlanRequest(req, _res, next) {
 
   const budget = Number(body.budget);
   if (!Number.isFinite(budget) || budget <= 0) {
-    errors.budget = 'Budjetni kiriting.';
-  } else if (budget < LIMITS.budgetMin) {
-    errors.budget = `Budjet kamida ${LIMITS.budgetMin.toLocaleString('ru-RU')} soʻm boʻlsin.`;
+    errors.budget = 'Budjetni kiriting (0 dan katta son).';
   } else if (budget > LIMITS.budgetMax) {
-    errors.budget = 'Budjet juda katta — kichikroq summa kiriting.';
+    errors.budget = 'Summa juda katta.';
   }
 
   const start = toMinutes(body.startTime);
@@ -46,8 +54,19 @@ export function validatePlanRequest(req, _res, next) {
     return next(ApiError.badRequest('Maʼlumotlarni tekshiring', errors));
   }
 
+  const date = typeof body.date === 'string' ? body.date : null;
+  const dayFromDate = weekdayFromDate(date);
+  if (date && !dayFromDate) {
+    errors.date = 'Sana notoʻgʻri (YYYY-MM-DD kutilgan).';
+  }
+
+  if (Object.keys(errors).length) {
+    return next(ApiError.badRequest('Maʼlumotlarni tekshiring', errors));
+  }
+
   req.planInput = {
-    day: typeof body.day === 'string' ? body.day : 'sunday',
+    date,
+    day: dayFromDate || (typeof body.day === 'string' ? body.day : 'sunday'),
     city: body.city,
     cityLabel: body.cityLabel || 'Toshkent',
     budget: Math.round(budget),

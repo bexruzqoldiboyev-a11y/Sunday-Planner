@@ -9,7 +9,8 @@ import { Tag } from '../components/ui/Chip.jsx';
 import { EmptyState } from '../components/ui/States.jsx';
 import { PlaceMedia } from '../components/ui/PlaceMedia.jsx';
 import { Tilt } from '../components/ui/Tilt.jsx';
-import { formatDate, formatMoney, formatSum } from '../utils/format.js';
+import { formatDate, formatDateLong, formatMoney, formatSum } from '../utils/format.js';
+import { useI18n } from '../i18n/index.jsx';
 
 export default function Saved() {
   const { savedPlans, removeSavedPlan, openSavedPlan } = usePlan();
@@ -17,6 +18,7 @@ export default function Saved() {
   const [tab, setTab] = useState('plans');
   const navigate = useNavigate();
   const toast = useToast();
+  const { t, lang } = useI18n();
 
   const open = (plan) => {
     openSavedPlan(plan);
@@ -26,10 +28,8 @@ export default function Saved() {
   return (
     <section className="section">
       <div className="shell shell--wide">
-        <h1 style={{ fontSize: 'var(--step-3)', marginBottom: '0.5rem' }}>Saqlangan</h1>
-        <p className="soft" style={{ marginBottom: 'var(--space-4)' }}>
-          Hammasi shu brauzerda saqlanadi — hisob ochish shart emas.
-        </p>
+        <h1 style={{ fontSize: 'var(--step-3)', marginBottom: '0.5rem' }}>{t('saved.title')}</h1>
+        <p className="soft" style={{ marginBottom: 'var(--space-4)' }}>{t('saved.lead')}</p>
 
         <div className="tabs">
           <button
@@ -38,7 +38,7 @@ export default function Saved() {
             data-active={tab === 'plans'}
             onClick={() => setTab('plans')}
           >
-            🗓 Rejalar ({savedPlans.length})
+            🗓 {t('saved.plans')} ({savedPlans.length})
           </button>
           <button
             type="button"
@@ -46,7 +46,7 @@ export default function Saved() {
             data-active={tab === 'places'}
             onClick={() => setTab('places')}
           >
-            ❤️ Yoqqan joylar ({favorites.length})
+            ❤️ {t('saved.places')} ({favorites.length})
           </button>
         </div>
 
@@ -62,11 +62,11 @@ export default function Saved() {
               {savedPlans.length === 0 ? (
                 <EmptyState
                   icon="🗓"
-                  title="Saqlangan reja yoʻq"
-                  message="Reja tuzib, natija sahifasida «Saqlash» tugmasini bosing."
+                  title={t('saved.noPlans')}
+                  message={t('saved.noPlansText')}
                   action={
                     <Button as="link" to="/planner">
-                      Rejamni tuzish
+                      {t('hero.cta')}
                     </Button>
                   }
                 />
@@ -89,19 +89,22 @@ export default function Saved() {
                       </div>
                       <div>
                         <h3 style={{ fontSize: '1.1rem' }}>
-                          {plan.dayLabel} · {plan.cityLabel}
+                          {plan.date ? formatDateLong(plan.date, lang) : plan.dayLabel} ·{' '}
+                          {plan.cityLabel}
                         </h3>
                         <p className="muted" style={{ fontSize: '0.84rem' }}>
-                          {plan.startTime}–{plan.endTime} · {plan.items.length} ta nuqta ·{' '}
-                          {formatDate(plan.savedAt)}
+                          {plan.startTime}–{plan.endTime} · {plan.items.length}{' '}
+                          {t('common.points')} · {formatDate(plan.savedAt)}
                         </p>
                       </div>
                       <div className="row" style={{ gap: '0.4rem', flexWrap: 'wrap' }}>
                         <Tag>💰 {formatSum(plan.totals.spend)} soʻm</Tag>
-                        <Tag tone="free">{formatSum(plan.totals.remaining)} qoldi</Tag>
+                        <Tag tone="free">
+                          {formatSum(plan.totals.remaining)} {t('saved.leftOf')}
+                        </Tag>
                       </div>
                       <div className="row" style={{ gap: '0.5rem', marginTop: 'auto' }}>
-                        <Button onClick={() => open(plan)}>Ochish</Button>
+                        <Button onClick={() => open(plan)}>{t('saved.open')}</Button>
                         <Button
                           variant="quiet"
                           onClick={() => {
@@ -109,7 +112,7 @@ export default function Saved() {
                             toast('Reja oʻchirildi');
                           }}
                         >
-                          Oʻchirish
+                          {t('saved.delete')}
                         </Button>
                       </div>
                     </motion.article>
@@ -128,11 +131,11 @@ export default function Saved() {
               {favorites.length === 0 ? (
                 <EmptyState
                   icon="🤍"
-                  title="Yoqqan joylar yoʻq"
-                  message="Reja ichidagi kartalarda yurakcha belgisini bosing — joy shu yerga tushadi."
+                  title={t('saved.noPlaces')}
+                  message={t('saved.noPlacesText')}
                   action={
                     <Button as="link" to="/planner">
-                      Reja tuzish
+                      {t('nav.planner')}
                     </Button>
                   }
                 />
@@ -159,7 +162,7 @@ export default function Saved() {
                         <Tag>
                           {place.priceMax > 0
                             ? `${formatMoney(place.priceMin)} dan`
-                            : 'Bepul'}
+                            : t('common.free')}
                         </Tag>
                         <Tag>⭐ {place.rating}</Tag>
                       </div>
@@ -170,7 +173,7 @@ export default function Saved() {
                           toast('Sevimlilardan olib tashlandi');
                         }}
                       >
-                        Olib tashlash
+                        {t('saved.remove')}
                       </Button>
                     </motion.article>
                   ))}

@@ -971,3 +971,305 @@ input[type='range']::-moz-range-thumb {
     transform: translate(120px, -58px);
   }
 }
+
+/* ==========================================================================
+   MOZAIKA QATLAMI — yassi bloklar, qalin chegara, qattiq soya
+   (yuqoridagi «shisha» qoidalarini qayta yozadi)
+   ========================================================================== */
+[data-skin='mosaic'] .glass::before,
+[data-skin='mosaic'] .tl-card::before,
+[data-skin='mosaic'] .option::before,
+[data-skin='mosaic'] .feature::before,
+[data-skin='mosaic'] .saved-card::before,
+[data-skin='mosaic'] .shine {
+  display: none !important;
+}
+[data-skin='mosaic'] .glass,
+[data-skin='mosaic'] .card,
+[data-skin='mosaic'] .tl-card,
+[data-skin='mosaic'] .step,
+[data-skin='mosaic'] .feature,
+[data-skin='mosaic'] .option,
+[data-skin='mosaic'] .gallery__inner,
+[data-skin='mosaic'] .wizard,
+[data-skin='mosaic'] .budget,
+[data-skin='mosaic'] .saved-card,
+[data-skin='mosaic'] .modal,
+[data-skin='mosaic'] .toast,
+[data-skin='mosaic'] .loader__card,
+[data-skin='mosaic'] .nav__inner,
+[data-skin='mosaic'] .tabbar,
+[data-skin='mosaic'] .hero__fact,
+[data-skin='mosaic'] .hero__eyebrow,
+[data-skin='mosaic'] .showreel,
+[data-skin='mosaic'] .map,
+[data-skin='mosaic'] .state__icon {
+  background: var(--paper);
+  border: var(--border) solid var(--edge);
+  box-shadow: var(--shadow-hard);
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+[data-skin='mosaic'] .stat,
+[data-skin='mosaic'] .budget__cell,
+[data-skin='mosaic'] .ribbon__row,
+[data-skin='mosaic'] .loader__step,
+[data-skin='mosaic'] .tl-move__label,
+[data-skin='mosaic'] .input,
+[data-skin='mosaic'] .tag,
+[data-skin='mosaic'] .segments {
+  background: var(--paper-2);
+  border: 2px solid var(--edge);
+  box-shadow: none;
+}
+[data-theme='dark'][data-skin='mosaic'] .stat,
+[data-theme='dark'][data-skin='mosaic'] .budget__cell,
+[data-theme='dark'][data-skin='mosaic'] .ribbon__row,
+[data-theme='dark'][data-skin='mosaic'] .loader__step,
+[data-theme='dark'][data-skin='mosaic'] .tl-move__label,
+[data-theme='dark'][data-skin='mosaic'] .input,
+[data-theme='dark'][data-skin='mosaic'] .tag,
+[data-theme='dark'][data-skin='mosaic'] .segments {
+  border-color: var(--line-strong);
+}
+[data-skin='mosaic'] /* -------------------------------- Tugmalar ------------------------------- */
+.btn {
+  border: 2px solid var(--edge);
+  border-radius: var(--radius-md);
+  box-shadow: 4px 4px 0 var(--edge);
+  animation: none !important;
+  background-size: auto;
+}
+[data-skin='mosaic'] .btn::after {
+  display: none;
+}
+[data-skin='mosaic'] .btn--primary {
+  background: var(--terracotta);
+  color: #fff8ec;
+}
+[data-skin='mosaic'] .btn--ghost {
+  background: var(--paper);
+  color: var(--ink);
+}
+[data-skin='mosaic'] .btn--quiet {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--line-strong);
+}
+[data-skin='mosaic'] .btn--quiet:hover {
+  color: var(--terracotta);
+  text-decoration-color: var(--terracotta);
+}
+[data-skin='mosaic'] .btn:not(:disabled):hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 7px 7px 0 var(--edge);
+}
+[data-skin='mosaic'] .btn--primary:not(:disabled):hover {
+  box-shadow: 7px 7px 0 var(--edge);
+  background: var(--brick);
+}
+[data-skin='mosaic'] .btn:not(:disabled):active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--edge);
+}
+[data-theme='dark'][data-skin='mosaic'] .btn {
+  box-shadow: 4px 4px 0 rgba(244, 231, 201, 0.4);
+}
+[data-theme='dark'][data-skin='mosaic'] .btn:not(:disabled):hover {
+  box-shadow: 7px 7px 0 rgba(244, 231, 201, 0.45);
+}
+[data-skin='mosaic'] /* --------------------------------- Chiplar ------------------------------- */
+.chip {
+  border: 2px solid var(--edge);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  box-shadow: 3px 3px 0 var(--edge);
+  backdrop-filter: none;
+}
+[data-skin='mosaic'] .chip:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--edge);
+}
+[data-skin='mosaic'] .chip[aria-pressed='true'],
+[data-skin='mosaic'] .chip[data-active='true'] {
+  background: var(--mustard);
+  color: #1d1608;
+  box-shadow: 3px 3px 0 var(--edge);
+}
+[data-theme='dark'][data-skin='mosaic'] .chip {
+  box-shadow: 3px 3px 0 rgba(244, 231, 201, 0.35);
+}
+[data-skin='mosaic'] .tag {
+  border-radius: var(--radius-sm);
+  color: var(--ink-soft);
+}
+[data-skin='mosaic'] .tag--demo {
+  background: var(--mustard);
+  color: #1d1608;
+  border-color: var(--edge);
+}
+[data-skin='mosaic'] .tag--free {
+  background: var(--jade);
+  color: #f3fbf7;
+  border-color: var(--edge);
+}
+[data-skin='mosaic'] /* -------------------------------- Ikonkalar ------------------------------ */
+.icon-btn {
+  border: 2px solid var(--edge);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  box-shadow: 3px 3px 0 var(--edge);
+}
+[data-skin='mosaic'] .icon-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--edge);
+  background: var(--chip-bg-active);
+}
+[data-theme='dark'][data-skin='mosaic'] .icon-btn {
+  box-shadow: 3px 3px 0 rgba(244, 231, 201, 0.35);
+}
+[data-skin='mosaic'] .brand__mark {
+  border: 2px solid var(--edge);
+  border-radius: var(--radius-sm);
+  background: var(--mustard);
+  box-shadow: 3px 3px 0 var(--edge);
+  animation: none;
+}
+[data-skin='mosaic'] /* ------------------------------- Segmentlar ------------------------------ */
+.segments {
+  border-radius: var(--radius-md);
+  padding: 3px;
+}
+[data-skin='mosaic'] .segments__item {
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+[data-skin='mosaic'] .segments__marker {
+  border-radius: var(--radius-sm);
+  background: var(--mosaic-blue);
+  box-shadow: none;
+}
+[data-skin='mosaic'] .segments__item[data-active='true'] {
+  color: #fdf6e9;
+}
+[data-skin='mosaic'] /* --------------------------------- Meter --------------------------------- */
+.meter {
+  height: 20px;
+  border: 2px solid var(--edge);
+  border-radius: var(--radius-sm);
+  background: var(--paper-2);
+  box-shadow: none;
+}
+[data-skin='mosaic'] .meter__fill {
+  border-radius: 0;
+  background: repeating-linear-gradient(
+    135deg,
+    var(--terracotta) 0 12px,
+    var(--mustard) 12px 24px
+  );
+  box-shadow: none;
+  animation: none;
+  border-right: 2px solid var(--edge);
+}
+[data-skin='mosaic'] .meter__fill[data-tone='over'] {
+  background: repeating-linear-gradient(135deg, var(--brick) 0 12px, #d4574a 12px 24px);
+}
+[data-skin='mosaic'] .meter__target {
+  background: var(--edge);
+  opacity: 1;
+  width: 3px;
+}
+[data-skin='mosaic'] /* -------------------------------- Muqovalar ------------------------------ */
+.cover {
+  border: 2px solid var(--edge);
+  border-radius: var(--radius-md);
+  box-shadow: none;
+}
+[data-skin='mosaic'] .cover--sm {
+  border-radius: var(--radius-sm);
+}
+[data-skin='mosaic'] /* ------------------------- Vaqt — monoshriftda --------------------------- */
+.tl-item__time,
+[data-skin='mosaic'] .ribbon__time,
+[data-skin='mosaic'] .showreel__caption,
+[data-skin='mosaic'] .route-pin__time,
+[data-skin='mosaic'] .wizard__count,
+[data-skin='mosaic'] .hero__fact b,
+[data-skin='mosaic'] .budget__spend,
+[data-skin='mosaic'] .stat b,
+[data-skin='mosaic'] .tl-card__price {
+  font-family: var(--font-mono);
+  letter-spacing: -0.04em;
+}
+[data-skin='mosaic'] .tl-item__time {
+  background: var(--mustard);
+  color: #1d1608;
+  border: 2px solid var(--edge);
+  border-radius: var(--radius-sm);
+  box-shadow: 3px 3px 0 var(--edge);
+  font-weight: 700;
+}
+
+/* --------------------------- Yugurib turgan lenta ------------------------ */
+.marquee {
+  position: relative;
+  overflow: hidden;
+  border-block: 2px solid var(--edge);
+  background: var(--mosaic-blue);
+  color: #fdf6e9;
+  padding-block: 0.55rem;
+}
+
+.marquee__track {
+  display: flex;
+  gap: 2.5rem;
+  width: max-content;
+  animation: marquee 26s linear infinite;
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.marquee__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--mustard);
+}
+
+/* Sana maydoni — barcha brauzerlarda bir xil balandlik va kursor */
+.input--date {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  cursor: pointer;
+}
+
+.input--date::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+  filter: var(--date-icon-filter, none);
+}
+
+[data-theme='dark'] .input--date::-webkit-calendar-picker-indicator {
+  --date-icon-filter: invert(1);
+}

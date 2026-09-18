@@ -12,12 +12,12 @@ import { StepInterests } from './steps/StepInterests.jsx';
 import { StepMood } from './steps/StepMood.jsx';
 
 const STEPS = [
-  { id: 'when', icon: '🗓', label: 'Kun va shahar', title: 'Qachon va qayerda?', Component: StepWhen },
-  { id: 'time', icon: '⏱', label: 'Vaqt', title: 'Vaqtingiz qancha?', Component: StepTime },
-  { id: 'budget', icon: '💰', label: 'Budjet', title: 'Budjetni belgilaymiz', Component: StepBudget },
-  { id: 'company', icon: '🧑‍🤝‍🧑', label: 'Kim bilan', title: 'Kim bilan chiqasiz?', Component: StepCompany },
-  { id: 'interests', icon: '✨', label: 'Qiziqishlar', title: 'Nima yoqadi?', Component: StepInterests },
-  { id: 'mood', icon: '🎈', label: 'Kayfiyat', title: 'Kun qanday oʻtsin?', Component: StepMood },
+  { id: 'when', icon: '🗓', Component: StepWhen },
+  { id: 'time', icon: '⏱', Component: StepTime },
+  { id: 'budget', icon: '💰', Component: StepBudget },
+  { id: 'company', icon: '🧑‍🤝‍🧑', Component: StepCompany },
+  { id: 'interests', icon: '✨', Component: StepInterests },
+  { id: 'mood', icon: '🎈', Component: StepMood },
 ];
 
 /** Qadamga tegishli xatolarni qaytaradi (bo'sh obyekt = xato yo'q). */
@@ -35,15 +35,17 @@ function validateStep(stepId, form) {
   }
 
   if (stepId === 'budget') {
-    if (!form.budget || form.budget < BUDGET.min) {
-      errors.budget = `Budjet kamida ${BUDGET.min.toLocaleString('ru-RU')} soʻm boʻlsin.`;
-    } else if (form.budget > BUDGET.max) {
-      errors.budget = 'Budjet juda katta — kichikroq summa kiriting.';
+    // Chegara yoʻq — faqat musbat son boʻlishi kerak.
+    if (!Number.isFinite(Number(form.budget)) || Number(form.budget) <= 0) {
+      errors.budget = 'Budjetni kiriting (0 dan katta son).';
     }
   }
 
-  if (stepId === 'when' && !form.city) {
-    errors.city = 'Shaharni tanlang.';
+  if (stepId === 'when') {
+    if (!form.city) errors.city = 'Shaharni tanlang.';
+    if (form.date && !/^\d{4}-\d{2}-\d{2}$/.test(form.date)) {
+      errors.date = 'Sanani toʻgʻri tanlang.';
+    }
   }
 
   return errors;
@@ -84,7 +86,7 @@ export function Wizard({ form, update, onSubmit, submitting }) {
 
   return (
     <div className="planner__grid">
-      <aside className="wizard-rail" aria-label="Qadamlar">
+      <aside className="wizard-rail" aria-label={t('planner.title')}>
         <div className="wizard-rail__list">
           {STEPS.map((item, itemIndex) => {
             const state = itemIndex === index ? 'current' : itemIndex < index ? 'done' : 'todo';
@@ -102,7 +104,7 @@ export function Wizard({ form, update, onSubmit, submitting }) {
                     <span className="wizard-rail__line" aria-hidden="true" />
                   ) : null}
                 </span>
-                {item.label}
+                {t(`step.${item.id}`)}
               </button>
             );
           })}
@@ -119,7 +121,7 @@ export function Wizard({ form, update, onSubmit, submitting }) {
           <div className="wizard__count">
             {t('planner.step', { current: index + 1, total: STEPS.length })}
           </div>
-          <h2 style={{ fontSize: 'var(--step-2)' }}>{step.title}</h2>
+          <h2 style={{ fontSize: 'var(--step-2)' }}>{t(`step.${step.id}.title`)}</h2>
         </header>
 
         <div className="wizard__body">
@@ -145,7 +147,7 @@ export function Wizard({ form, update, onSubmit, submitting }) {
 
           {last ? (
             <Button onClick={handleSubmit} disabled={submitting} size="lg">
-              {submitting ? 'Tuzilmoqda…' : `${t('planner.generate')} ☀️`}
+              {submitting ? t('planner.generating') : `${t('planner.generate')} ☀️`}
             </Button>
           ) : (
             <Button onClick={() => go(index + 1)}>{t('planner.next')} →</Button>
