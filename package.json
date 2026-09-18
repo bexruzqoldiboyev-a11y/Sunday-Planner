@@ -12,7 +12,7 @@
     "dev": "concurrently -n server,client -c magenta,cyan \"npm:dev:server\" \"npm:dev:client\"",
     "dev:client": "npm --workspace client run dev",
     "dev:server": "npm --workspace server run dev",
-    "build": "npm --workspace client run build",
+    "build": "npm --workspace client run build && node scripts/copy-dist.mjs",
     "preview": "npm --workspace client run preview",
     "start": "npm --workspace server run start"
   },
